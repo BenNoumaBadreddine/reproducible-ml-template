@@ -1,148 +1,63 @@
-# Create new python project
-## Create the project structure
+# Reproducible structure for a machine learning project
+## Motivation
+To speed up the creation of the project, it is very convenient to start with an already structured template.
+Based on that structure, you ensure that your project will be easy to read and 
+to maintain.
 
-* Open the terminal and change the current working directory to your local project.
-* Create the project folder using poetry:
-```
-poetry new python-project-template
-```
-![img.png](images/new_python_project_using_poetry.png)
+## How to get started
+To download the template and start using it to your own project, you have to follow the following steps.
 
-## Create the poetry interpreter
-* Step 1: Add new local interpreter
-![img.png](images/add_poetry_interpreter_step_1.png)
-* Step 2: Create a new poetry interpreter
-![img.png](images/add_poetry_interpreter_step_2.png)
-  * Step 3: Rename the newly created poetry interpreter
-  ![img.png](images/add_poetry_interpreter_step_3.png)
-  
-        venv location: /Users/badr/Library/Caches/pypoetry/virtualenvs/github-projects-SNtUKpNA-py3.11/bin
-  
-## Install the requirements using poetry:
-* poetry add sklearn
-* poetry add pandas
-* ...
+* In your computer, try to open a terminal and activate your favorite venv.
+* Install [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
+    ```bash
+    pip install cookiecutter
+    ```
+* Create your new project using the template:
+    ```bash
+    cookiecutter https://github.com/BenNoumaBadreddine/reproducible-ml-template
+    ```
 
-## Automatic format of the python code
+## Useful Tools that should be used in any ML project
+* [Poetry](https://python-poetry.org/): Dependency management - [article](https://towardsdatascience.com/how-to-effortlessly-publish-your-python-package-to-pypi-using-poetry-44b305362f9f)
+* [Prefect](https://www.prefect.io/): Orchestrate and observe your data pipeline - [article](https://medium.com/the-prefect-blog/orchestrate-your-data-science-project-with-prefect-2-0-4118418fd7ce?sk=552f3e60344175768dabbbf033776ce7)
+* [Pydantic](https://docs.pydantic.dev/): Data validation using Python type annotations - [article](https://towardsdatascience.com/build-a-full-stack-ml-application-with-pydantic-and-prefect-915f00fe0c62?sk=b1f8c5cb53a6a9d7f48d66fa778e9cf0)
+* [pre-commit plugins](https://pre-commit.com/): Automate code reviewing formatting  - [article](https://towardsdatascience.com/4-pre-commit-plugins-to-automate-code-reviewing-and-formatting-in-python-c80c6d2e9f5?sk=2388804fb174d667ee5b680be22b8b1f)
+* Makefile: Create short and readable commands for repeatable tasks - [article](https://the-turing-way.netlify.app/reproducible-research/make/make-examples.html)
+* [GitHub Actions](https://docs.github.com/en/actions): Automate your workflows, making it faster to build, test, and deploy your code - [article](https://pub.towardsai.net/github-actions-in-mlops-automatically-check-and-deploy-your-ml-model-9a281d7f3c84?sk=d258c20a7ff7a1db44327c27d3f36efb)
+* [pdoc](https://github.com/pdoc3/pdoc): Automatically create an API documentation for your project
 
-* Install ```black``` package:
 
+## Machine learning project structure
 ```bash
-poetry add black --group dev
-```
-* How to use?
+.
+├── data            
+│   ├── final                       # data after training the model
+│   ├── processed                   # data after processing
+│   ├── raw                         # raw data
+├── docs                            # documentation for your project
+│   ├── src                         # store source documentation
+│   ├── process.md                  # description and documentation of the process
+│   └── train_model.md              # description and documentation of train model
+├── images                          # store images
+├── models                          # store models
+├── notebooks                       # store notebooks
+├── src                             # store source code
+│   ├── __init__.py                 # make src a Python module 
+│   ├── process.py                  # process data before training model
+│   └── train_model.py              # train model
+├── tests                           # store tests
+    ├── __init__.py                 # make tests a Python module 
+    ├── test_process.py             # test functions for process.py
+    └── test_train_model.py         # test functions for train_model.py
+├── .flake8                         # configuration for flake8 - a Python formatter tool
+├── .gitignore                      # ignore files that cannot commit to Git
+├── 
+├── 
+├── Makefile                        # store useful commands to set up the environment
+├── .pre-commit-config.yaml         # configurations for pre-commit
+├── README.md                       # describe your project
+└── pyproject.toml                  # dependencies for poetry
 
-  Either to open a terminal and write:
-```bash
-black python_script_name.py
 ```
-or if we want to format more than one python file, write :
-```bash
-black folder_name/
-```
-or using pre-commit automatic formatting:
-* First, we need to install not only black but also pre-commit package:
-```bash
-poetry add pre-commit
-```
-* Create a new file and name it: ```.pre-commit-config.yaml```
-* Write in the file the following code, make sure you are choosing your 
-current python version ```python --version```:
-```
-repos:
--   repo: https://github.com/psf/black
-    rev: stable
-    hooks:
-    - id: black
-      language_version: python3.11.0
-```
-* Install pre-commit, meaning, create a new hook for the yaml file. 
-Using the terminal, change the current working directory to your local project 
-(where the yaml file is created and then execute:
-```
-pre-commit install
-```
-* Install mypy
-```
-poetry add mypy --group dev
-```
-pylint setting in external tools
-
-Resources
-* https://www.jetbrains.com/help/pycharm/configuring-third-party-tools.html#web-browsers
-
-
-config:
-
-
-argument: "--msg-template='{abspath}:{line:5d},{column:2d}: {msg} ({symbol})'" --output-format=colorized "$FilePath$"
-
-workingdir: $ProjectFileDir$
-
-output: filters: $FILE_PATH$:\s*$LINE$\,\s*$COLUMN$:
-
-
-## Add the local python project to your GitHub
-* Open the terminal, change the current working directory to your local project.
-* Initialize the local directory as a Git repository.
-```
-git init
-```
-* Stage and commit all the files in your project:
-```
-git add . && git commit -m "initial commit"
-```
-* To create a repository for your project on GitHub, use the ```gh repo create ``` subcommand.
-
-If it is the first time you are adding a project to your GitHub you need to set up few things:
-- First, install ```gh```:
-```
-poetry add gh --group dev
-```
-```
-brew install gh
-```
-- Now, when you type ```gh repo create ``` on the terminal, it will ask you to login:
-![img.png](images/git_login.png)
--Go to the GitHub website and generate new classic token:
-![img.png](images/GitHub_classic_token.png)
-- Configure SourceTree:
-![img.png](images/sourcetree_configure_with_github.png)
-- Configure Pycharm:
-![img.png](images/pycharm_configure_with_github.png)
-- GitHub's authentication: 
-- Solution 1: 
-- Create a file ```script.sh``` containing the following:
-```
-#!/bin/env bash
-set -u
-echo "$GITHUB_TOKEN" > .githubtoken
-unset GITHUB_TOKEN
-gh auth login --with-token < .githubtoken
-rm .githubtoken
-gh release create $VERSION --notes "Release $VERSION. $COMMIT_MESSAGE"
-```
-- Create a configuration file with adding some environmental variables:
-![img.png](images/github_authen_cli_script_sh.png)
-- Execute the shell script to validate the authentication.
-After executing that script you will be able to create a repo using 
-```bash
-gh repo create
-```
-![img.png](images/add_remote_repo_using_cli.png)
-To set the password and commit/push changes:
-![img.png](images/github_add_changes_with_authentification.png)
-
-## First use of ```black``` formatting tool 
-* After installing the pre-commit ```pre-commit install```
-inside the GitHub repository, a hidden folder called ```.git``` will be created.
-Then, after you finish with your python script code, you need to check the code format (extra empty line or space, etc.), all you need 
-is to add your files ```git add .``` then commit ```git commit -m 'your comment' ```.
-If your added files are already formatted, the commit will pass.
-* If the commit fails, what happen next is that before committing your code, the pre-commit 
-hook will check your code format and will automatically update your code.
-![img.png](images/first_use_pre_commit_hook.png)
-* What you have to do is to repeat add, commit and push your code into the remote repo.
-![img.png](images/pre_commit_with_black_add_commit_push.png)
 
 
