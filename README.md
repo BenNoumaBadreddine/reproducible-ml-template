@@ -9,23 +9,44 @@ To download the template and start using it to your own project, you have to fol
 
 * In your computer, try to open a terminal and activate your favorite venv.
 * Install [Cookiecutter](https://github.com/cookiecutter/cookiecutter)
-    ```bash
+    ```bash 
     pip install cookiecutter
     ```
 * Create your new project using the template:
     ```bash
     cookiecutter https://github.com/BenNoumaBadreddine/reproducible-ml-template
     ```
+* Create a new interpreter, for your project, using the toml file (please see: 
+[create_poetry_interpreter_from_toml_demo.md](create_poetry_interpreter_from_toml_demo.md)) 
+* To install new python package (please see: 
+[how_to_use_poetry](https://github.com/BenNoumaBadreddine/poetry_guide.git)) 
 
 ## Useful Tools that should be used in any ML project
-* [Poetry](https://python-poetry.org/): Dependency management - [article](https://towardsdatascience.com/how-to-effortlessly-publish-your-python-package-to-pypi-using-poetry-44b305362f9f)
-* [Prefect](https://www.prefect.io/): Orchestrate and observe your data pipeline - [article](https://medium.com/the-prefect-blog/orchestrate-your-data-science-project-with-prefect-2-0-4118418fd7ce?sk=552f3e60344175768dabbbf033776ce7)
-* [Pydantic](https://docs.pydantic.dev/): Data validation using Python type annotations - [article](https://towardsdatascience.com/build-a-full-stack-ml-application-with-pydantic-and-prefect-915f00fe0c62?sk=b1f8c5cb53a6a9d7f48d66fa778e9cf0)
-* [pre-commit plugins](https://pre-commit.com/): Automate code reviewing formatting  - [article](https://towardsdatascience.com/4-pre-commit-plugins-to-automate-code-reviewing-and-formatting-in-python-c80c6d2e9f5?sk=2388804fb174d667ee5b680be22b8b1f)
-* Makefile: Create short and readable commands for repeatable tasks - [article](https://the-turing-way.netlify.app/reproducible-research/make/make-examples.html)
-* [GitHub Actions](https://docs.github.com/en/actions): Automate your workflows, making it faster to build, test, and deploy your code - [article](https://pub.towardsai.net/github-actions-in-mlops-automatically-check-and-deploy-your-ml-model-9a281d7f3c84?sk=d258c20a7ff7a1db44327c27d3f36efb)
+* [Poetry](https://python-poetry.org/): Dependency management - [how_to_use_poetry](https://github.com/BenNoumaBadreddine/poetry_guide.git)
+* [Prefect](https://www.prefect.io/): Orchestrate and observe your data pipeline - 
+* [Pydantic](https://docs.pydantic.dev/): Data validation using Python type annotations - 
+* [pre-commit plugins](https://pre-commit.com/): Automate code reviewing formatting  -
+* Makefile: Create short and readable commands for repeatable tasks - [Makefile_demo](setting_up_makefile_demo.md)
+* [GitHub Actions](https://docs.github.com/en/actions): Automate your workflows, making it faster to build, test, and deploy your code - 
 * [pdoc](https://github.com/pdoc3/pdoc): Automatically create an API documentation for your project
 
+
+
+## Useful plugins
+In this template, there are many plugins that are specified in `.pre-commit-config.yaml`. 
+In order to use any of them you need to un-comment the corresponding code in that file:
+
+-   [black](https://black.readthedocs.io/en/stable/) — formats Python code - (please see: 
+[black_tool_demo.md](black_tool_demo.md)) 
+-   [flake8](https://flake8.pycqa.org/en/latest/) — checks the style and quality of your Python code
+-   [isort](https://github.com/PyCQA/isort) — automatically sorts imported libraries alphabetically and separates them into sections and types.
+-   [mypy](https://github.com/python/mypy) — checks static type
+-   [nbstripout](https://github.com/kynan/nbstripout) — strips output from Jupyter notebooks
+
+To make use of pre-commit configurations, we need to add pre-commit to git hooks, but before that check the `.pre-commit-config.yaml` file and comment/uncomment whatever you want:
+```bash
+pre-commit install
+```
 
 ## Machine learning project structure
 ```bash
@@ -46,18 +67,47 @@ To download the template and start using it to your own project, you have to fol
 │   ├── process.py                  # process data before training model
 │   └── train_model.py              # train model
 ├── tests                           # store tests
-    ├── __init__.py                 # make tests a Python module 
-    ├── test_process.py             # test functions for process.py
-    └── test_train_model.py         # test functions for train_model.py
+│   ├── __init__.py                 # make tests a Python module 
+│   ├── test_process.py             # test functions for process.py
+│   └── test_train_model.py         # test functions for train_model.py
 ├── .flake8                         # configuration for flake8 - a Python formatter tool
 ├── .gitignore                      # ignore files that cannot commit to Git
-├── 
+├── .pre-commit-config.yaml         # configurations for pre-commit
 ├── 
 ├── Makefile                        # store useful commands to set up the environment
-├── .pre-commit-config.yaml         # configurations for pre-commit
-├── README.md                       # describe your project
-└── pyproject.toml                  # dependencies for poetry
+├── 
+├── pyproject.toml                  # dependencies for poetry
+└── README.md                       # describe your project
 
 ```
 
+## Add API Documentation
+It is important to write a clear documentation of your source code in order to make readable for evreybody in your team 
+who wants to understand the project or to collaborate and add some module to your project.
 
+
+To create an API documentation, you need first to make sure that you have already wrote a docstring in each function in your project. 
+To do that, you need to run:
+
+```bash
+make docs_view
+```
+
+The output of that command is:
+
+```bash
+Save the output to docs...
+pdoc src --http localhost:8080
+Starting pdoc server on localhost:8080
+pdoc server ready at http://localhost:8080
+```
+
+Now you can find the documentation on [http://localhost:8080](http://localhost:8080/).
+
+![](https://miro.medium.com/max/700/1*E821NFpxKloYjkJTX9H9aA.gif)
+
+To save all API documentation as markdowns, run:
+
+```bash
+make docs_save
+```
