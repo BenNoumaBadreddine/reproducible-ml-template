@@ -8,3 +8,4 @@ activate:
 	poetry shell
 
 setup: activate install
+
