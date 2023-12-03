@@ -23,14 +23,15 @@ To download the template and start using it to your own project, you have to fol
 
 ## Useful Tools that should be used in any ML project
 * [Poetry](https://python-poetry.org/): Dependency management - [how_to_use_poetry](https://github.com/BenNoumaBadreddine/poetry_guide.git)
-* [Prefect](https://www.prefect.io/): Orchestrate and observe your data pipeline - 
+* [Prefect](https://www.prefect.io/): Orchestrate and observe your data pipeline - [prefect_demo](prefect_demo.md)
+* [AirFlow](https://airflow.apache.org/): Orchestrate and observe your data pipeline - 
 * [Pydantic](https://docs.pydantic.dev/): Data validation using Python type annotations - 
 * [pre-commit plugins](https://pre-commit.com/): Automate code reviewing formatting  -
 * Makefile: Create short and readable commands for repeatable tasks - [Makefile_demo](setting_up_makefile_demo.md)
 * [GitHub Actions](https://docs.github.com/en/actions): Automate your workflows, making it faster to build, test, and deploy your code - 
 * [pdoc](https://github.com/pdoc3/pdoc): Automatically create an API documentation for your project
 
-
+https://www.youtube.com/watch?v=BzAU5wQB0iM&ab_channel=Prefect
 
 ## Useful plugins
 In this template, there are many plugins that are specified in `.pre-commit-config.yaml`. 
