@@ -1,0 +1,61 @@
+# ignore virtual environment
+.venv/
+
+# ignore python artifacts
+.mypy_cache/
+.pytest_cache/
+__pycache__/
+**/*.pyc
+
+# ignore development artifacts
+.git/
+.azure/
+.devcontainer/
+.devops/
+.vscode/
+.env
+.env.template
+.flake8
+README.md
+README_KEDRO.md
+.coverage
+.gitignore
+.dockerignore
+Dockerfile
+Dockerfile.azuremlenv
+Dockerfile.feedback
+Dockerfile.inference
+
+# ignore docs
+**/bim_ai_toolbox/docs/**
+
+# ignore project folders
+pulumi/
+src/tests/
+
+# ignore everything in the following folders
+data/
+logs/
+notebooks/
+references/
+results/
+mlruns/
+
+# KEDRO PROJECT
+
+# ignore all local configuration
+conf/local/**
+!conf/local/.gitkeep
+.telemetry
+
+# ignore potentially sensitive credentials files
+conf/**/*credentials*
+
+# except base credentials since they are built are runtime
+!conf/base/credentials.yml
+
+# except the following
+!logs/.gitkeep
+!notebooks/.gitkeep
+!references/.gitkeep
+!results/.gitkeep 
