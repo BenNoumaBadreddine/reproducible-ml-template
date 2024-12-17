@@ -1,29 +1,30 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/python
 {
 	"name": "Python 3",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/python:1-3.9-bullseye",
+	"image": "mcr.microsoft.com/devcontainers/python:1-3.10-bullseye",
 	"runArgs": [
 		"--env-file",
-		".devcontainer/devcontainer.env"
+		".devcontainer/devcontainer.local.env"
 	],
 	"remoteEnv": {
 		"PYTHONPATH": "${containerWorkspaceFolder}/src:${containerEnv:PYTHONPATH}",
-		"LD_LIBRARY_PATH": "/usr/local/cuda/lib64:${containerEnv:LD_LIBRARY_PATH}",
-		"PATH": "/usr/local/cuda/bin:${containerEnv:PATH}"
+		"PATH": "/home/vscode/.local/bin:${containerEnv:PATH}"
 	},
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
+    "mounts": [
+	// create a volume with the same name as your project, by default it is renamed as vscode
+        {
+            "source": "{{cookiecutter.repo_name}}-vol",
+            "target": "/workspace",
+            "type": "volume"
+        }
+    // add an external shared libraries to your current project 	
+	//  ,{"source": "C:/path/src/shared_lib",
+    //  "target":"/workspaces/projectname/src/shared_lib",
+    //  "type": "bind",
+    //  "consistency": "cached"
+    // }
+	],
 	"postCreateCommand": "poetry install --sync --with dev,training",
-	"postStartCommand": "poetry run pre-commit install && poetry run pre-commit install-hooks",
-	// Configure tool-specific properties.
+	"postStartCommand": "git config --global --add safe.directory /workspaces/{{cookiecutter.repo_name}} && poetry run pre-commit install && poetry run pre-commit install-hooks",
     "customizations": {
 		"vscode": {
 			"extensions": [
@@ -48,7 +49,8 @@
 		}
 
 	}
+	// ,
+    // "mounts": [
 
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+    // ]
 }
